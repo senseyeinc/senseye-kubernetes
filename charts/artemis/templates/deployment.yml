@@ -36,11 +36,11 @@ spec:
           #   persistentVolumeClaim:
           #     claimName: scheduler-mount
           #     readOnly: true
-      env:
-      - name: PYTHON_ENV
-        value: {{ .Values.general.python_env }}
-      - name: FLASK_ENV
-        value: {{ .Values.general.flask_env }}
+          env:
+          - name: PYTHON_ENV
+            value: {{ .Values.general.python_env }}
+          - name: FLASK_ENV
+            value: {{ .Values.general.flask_env }}
       imagePullSecrets:
         - name: {{ .Values.general.docker_secret }}
       restartPolicy: Always
