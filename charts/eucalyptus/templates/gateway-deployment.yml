@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.gateway.app }}
+  name: {{ .Values.gateway.name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.gateway.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.gateway.app }}
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.general.repository }}:{{ .Values.gateway.tag }}-{{ .Values.general.tag }}"
+          name:  {{ .Values.gateway.name }}
+          imagePullPolicy: {{ .Values.general.image_pull_policy }}
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+            name: {{ .Values.gateway.grpc_portname }}
+          env:
+          - name: PYTHON_ENV
+            value: {{ .Values.general.python_env }}
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      restartPolicy: Always
+      nodeSelector:
+        {{ .Values.gateway.node_selector_name }}: {{ .Values.gateway.node_selector_value }}

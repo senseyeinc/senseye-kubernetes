@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.artemis.name }}
+  namespace: {{ .Values.general.namespace }}
+  labels:
+    app: {{ .Values.artemis.app }}
+spec:
+  selector:
+    app: {{ .Values.artemis.app }}
+  ports:
+  - name: {{ .Values.artemis.name }}
+    port: {{.Values.artemis.flask_port}}
+    targetPort: 80
+    protocol: TCP

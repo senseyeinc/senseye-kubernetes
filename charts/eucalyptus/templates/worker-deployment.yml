@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.grove.app }}
+    component: worker
+  name: {{ .Values.grove.worker_name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.grove.worker_replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.grove.app }}
+      component: worker
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.grove.app }}
+        component: worker
+      # Disable linkerd as it causes networking issues
+      annotations:
+        linkerd.io/inject: disable
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.grove.repository }}:{{ .Values.grove.tag }}"
+          name: {{ .Values.grove.worker_name }}
+          # args:
+          # - dask-worker
+          # - grove-scheduler:8786
+          # - --no-dashboard
+          env:
+          - name: DASK_SCHEDULER_ADDRESS
+            value: "{{ .Values.grove.scheduler_name }}: {{.Values.grove.scheduler_port}}"
+          imagePullPolicy: Always
+          ports:
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      nodeSelector:
+        {{ .Values.grove.node_selector_name }}: {{ .Values.grove.worker_selector_value }}

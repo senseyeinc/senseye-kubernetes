@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.compute.app }}
+  name: {{ .Values.compute.name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.compute.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.compute.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.compute.app }}
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.general.repository }}:{{ .Values.compute.tag }}-{{ .Values.general.tag }}"
+          name: {{ .Values.compute.name }}
+          imagePullPolicy: {{ .Values.general.image_pull_policy }}
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+            name: {{ .Values.compute.grpc_portname }}
+          env:
+          - name: PYTHON_ENV
+            value: {{ .Values.general.python_env }}
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      restartPolicy: Always
+      nodeSelector:
+        {{ .Values.compute.node_selector_name }}: {{ .Values.compute.node_selector_value }}

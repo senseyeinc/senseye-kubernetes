@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.compute_tasks.name }}
+  namespace: {{ .Values.general.namespace }}
+  labels:
+    app: {{ .Values.compute_tasks.app }}
+spec:
+  selector:
+    app: {{ .Values.compute_tasks.app }}
+  ports:
+  - name: {{ .Values.compute_tasks.portname }}
+    port: 50051
+    targetPort: 50051
+    protocol: TCP

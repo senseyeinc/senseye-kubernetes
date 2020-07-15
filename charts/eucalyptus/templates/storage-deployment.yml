@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.storage.app }}
+  name: {{ .Values.storage.name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.storage.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.storage.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.storage.app }}
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.general.repository }}:{{ .Values.storage.tag }}-{{ .Values.general.tag }}"
+          name: {{ .Values.storage.name }}
+          imagePullPolicy: {{ .Values.general.image_pull_policy }}
+          ports:
+          - containerPort: 50051
+            protocol: TCP
+            name: {{ .Values.storage.grpc_portname }}
+          env:
+          - name: PYTHON_ENV
+            value: {{ .Values.general.python_env }}
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      restartPolicy: Always
+      nodeSelector:
+        {{ .Values.storage.node_selector_name }}: {{ .Values.storage.node_selector_value }}

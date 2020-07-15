@@ -1,0 +1,41 @@
+# Default values for grove.
+# This is a YAML-formatted file.
+
+#### general config #####
+general:
+  app: grove
+  namespace: senseye
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  image_pull_policy: IfNotPresent
+  python_env: production
+
+##### Grove #####
+grove:
+  # Repo and app
+  app: grove
+  repository: senseyeinc/grove
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  tag: latest
+
+  # Dashboard ingress
+  dashboard_ingress: true
+  dashboard_host: grove-dashboard.senseye.co
+
+  # selectors
+  node_selector_name: dask
+  worker_selector_value: worker
+  scheduler_selector_value: scheduler
+
+  # scheduler
+  scheduler_name: grove-scheduler
+  scheduler_replicas: 1
+  scheduler_port: 8786
+  # Expose scheduler with load balancer
+  expose_scheduler: false
+
+  # workers
+  worker_name: grove-worker
+  worker_replicas: 2
+
