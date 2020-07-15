@@ -1,0 +1,8 @@
+title: Senseye-kubernetes
+description: Senseye's custom helm charts for kubernets
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
