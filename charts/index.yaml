@@ -1,0 +1,78 @@
+apiVersion: v1
+entries:
+  Grove:
+  - apiVersion: v2
+    appVersion: v0.7.2
+    created: "2020-07-15T14:42:01.115660946-05:00"
+    description: Senseye grove deployment chart
+    digest: 45c5cdea14ca1a3d815bad82d4db796e6e35b2f6bbeb4b103aa61b8ca5ec13c2
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: Grove
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/Grove-0.1.1/Grove-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.7.2
+    created: "2020-07-15T14:42:01.011842889-05:00"
+    description: Senseye grove deployment chart
+    digest: 32f53be508c14e85570330d7fbde3e8d224e8738f2be624357d0405a08d1b531
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: Grove
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/Grove-0.1.0/Grove-0.1.0.tgz
+    version: 0.1.0
+  eucalyptus:
+  - apiVersion: v2
+    appVersion: v0.4.0
+    created: "2020-07-15T14:42:01.309090965-05:00"
+    description: Senseye Eucalyptus deployment chart
+    digest: ce8d774fc7140b95f9c79b0cdb1811ee63b0398043b0b3c27c172e2a4e24bda8
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: eucalyptus
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/eucalyptus-0.1.1/eucalyptus-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.4.0
+    created: "2020-07-15T14:42:01.202737684-05:00"
+    description: Senseye Eucalyptus deployment chart
+    digest: 15bfb64849e60f739135eca4f03d92ba1648ebc187a202702d7dfe5a3cb098dd
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: eucalyptus
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/eucalyptus-0.1.0/eucalyptus-0.1.0.tgz
+    version: 0.1.0
+  senseye-artemis:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2020-07-15T14:42:01.501614285-05:00"
+    description: Senseye Artemis deployment chart
+    digest: bb08dc85ac4bf90b1df7fa91a69d3924dc2d4fcf841adde746f52aa70a426368
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: senseye-artemis
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/senseye-artemis-0.1.1/senseye-artemis-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2020-07-15T14:42:01.399204108-05:00"
+    description: Senseye Artemis deployment chart
+    digest: 9e40a443707d7f3d6ac08512aa2644c768a6bed2686863e8d435582885460458
+    maintainers:
+    - email: Jacob.Schofield@Senseye.co
+      name: Jacob Schofield
+    name: senseye-artemis
+    urls:
+    - https://github.com/senseyeinc/senseye-kubernetes/releases/download/senseye-artemis-0.1.0/senseye-artemis-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-07-15T14:42:00.641122888-05:00"
