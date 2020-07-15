@@ -27,7 +27,7 @@ Senseye's public facing repo
 
 
 ## Senseye-artemis
-System Integrity's artemis package
+System Integrity's artemis package.
 
 ** Define all configurable variables here **
 
