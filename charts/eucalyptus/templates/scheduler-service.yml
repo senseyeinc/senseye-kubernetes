@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.grove.scheduler_name }}
+  namespace: {{ .Values.general.namespace }}
+  labels:
+    app: {{ .Values.grove.app }}
+    component: scheduler
+spec:
+  selector:
+    app: {{ .Values.grove.app }}
+    component: scheduler
+  ports:
+  - name: {{ .Values.grove.scheduler_name }}
+    port: {{.Values.grove.scheduler_port}}
+    targetPort: 8786
+    protocol: TCP
+  - name: dask-webui
+    port: 80
+    targetPort: 8787
+    protocol: TCP

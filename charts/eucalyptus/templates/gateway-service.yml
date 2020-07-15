@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.gateway.name }}
+  namespace: {{ .Values.general.namespace }}
+  labels:
+    app: {{ .Values.gateway.app }}
+spec:
+  selector:
+    app: {{ .Values.gateway.app }}
+  ports:
+  - name: {{ .Values.gateway.grpc_portname }}
+    port: 50051
+    targetPort: 50051
+    protocol: TCP
+  type: ClusterIP

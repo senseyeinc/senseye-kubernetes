@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.storage.name }}
+  namespace: {{ .Values.general.namespace }}
+  labels:
+    app: {{ .Values.storage.app }}
+spec:
+  selector:
+    app: {{ .Values.storage.app }}
+  ports:
+  - name: {{ .Values.storage.grpc_portname }}
+    port: 50051
+    targetPort: 50051
+    protocol: TCP

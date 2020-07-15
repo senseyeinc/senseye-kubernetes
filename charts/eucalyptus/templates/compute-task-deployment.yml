@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.compute_tasks.app }}
+  name: {{ .Values.compute_tasks.name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.compute_tasks.worker_replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.compute_tasks.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.compute_tasks.app }}
+        component: worker
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.general.repository }}:{{ .Values.compute_tasks.tag }}-{{ .Values.general.tag }}"
+          name: {{ .Values.compute_tasks.name }}
+          env:
+          - name: PYTHON_ENV
+            value: {{ .Values.general.python_env }}
+          imagePullPolicy: Always
+          ports:
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      nodeSelector:
+        {{ .Values.compute_tasks.node_selector_name }}: {{ .Values.compute_tasks.node_selector_value }}

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.grove.app }}
+  name: {{ .Values.grove.scheduler_name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.grove.scheduler_replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.grove.app }}
+      component: scheduler
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.grove.app }}
+        component: scheduler
+      # Disable linkerd as it causes networking issues
+      annotations:
+        linkerd.io/inject: disable
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.grove.repository }}:{{ .Values.grove.tag }}"
+          name: {{ .Values.grove.scheduler_name }}
+          args: ["dask-scheduler", "--host", "0.0.0.0"]
+            # - dask-scheduler
+            # - --host
+            # - '0.0.0.0'
+          imagePullPolicy: {{ .Values.general.image_pull_policy }}
+          # volumeMounts:
+          # - mountPath: /etc/dask
+          #   name: scheduler-mount
+          #   readOnly: true
+
+          # volumes:
+          # - name: scheduler-mount
+          #   persistentVolumeClaim:
+          #     claimName: scheduler-mount
+          #     readOnly: true
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      restartPolicy: Always
+      nodeSelector:
+        {{ .Values.grove.node_selector_name }}: {{ .Values.grove.scheduler_selector_value }}

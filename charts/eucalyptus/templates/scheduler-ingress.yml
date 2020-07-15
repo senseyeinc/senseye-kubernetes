@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/proxy-body-size: "10M"
+      nginx.ingress.kubernetes.io/secure-backends: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  labels:
+    app: {{ .Values.grove.app }}
+  name: {{ .Values.grove.scheduler_name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.grove.dashboard_host }}
+    secretName: {{ .Values.general.ssl_cert_secret }}
+  rules:
+  - host: {{ .Values.grove.dashboard_host }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ .Values.grove.scheduler_name }}
+          servicePort: 80

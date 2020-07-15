@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.artemis.app }}
+  name: {{ .Values.artemis.name }}
+  namespace: {{ .Values.general.namespace }}
+spec:
+  replicas: {{ .Values.artemis.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ .Values.artemis.app }}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.artemis.app }}
+      # Future proof for linkerd
+      annotations:
+        linkerd.io/inject: disable
+    spec:
+      containers:
+        - name:
+          image: "{{ .Values.artemis.repository }}:{{ .Values.artemis.tag }}"
+          name: {{ .Values.artemis.name }}
+          imagePullPolicy: {{ .Values.general.image_pull_policy }}
+          # volumeMounts:
+          # - mountPath: /etc/dask
+          #   name: scheduler-mount
+          #   readOnly: true
+
+          # volumes:
+          # - name: scheduler-mount
+          #   persistentVolumeClaim:
+          #     claimName: scheduler-mount
+          #     readOnly: true
+      env:
+      - name: PYTHON_ENV
+        value: {{ .Values.general.python_env }}
+      - name: FLASK_ENV
+        value: {{ .Values.general.flask_env }}
+      imagePullSecrets:
+        - name: {{ .Values.general.docker_secret }}
+      restartPolicy: Always
+      nodeSelector:
+        {{ .Values.artemis.node_selector_name }}: {{ .Values.artemis.selector_value }}
+      # This enable scheduling on the master node
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          effect: "NoSchedule"
+          operator: "Exists"

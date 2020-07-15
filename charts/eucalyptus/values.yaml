@@ -1,0 +1,99 @@
+# Default values for eucalyptus.
+# This is a YAML-formatted file.
+
+
+#### Eucaluptus general config #####
+general:
+  app: eucalyptus
+  namespace: euc-test
+  repository: senseyeinc/eucalyptus
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  tag: latest
+  image_pull_policy: IfNotPresent
+  python_env: production-k8s
+
+##### Grove #####
+grove:
+  app: grove
+  repository: senseyeinc/grove
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  tag: latest
+  dashboard_ingress: true
+  dashboard_host: grove-dashboard.senseye.co
+  # selectors
+  node_selector_name: dask
+  worker_selector_value: worker
+  scheduler_selector_value: worker
+  # scheduler
+  scheduler_name: scheduler
+  scheduler_replicas: 1
+  scheduler_port: 8786
+  # workers
+  worker_name: grove-worker
+  worker_replicas: 2
+
+##### Compute #####
+compute:
+  app: compute
+  name: compute
+  tag: compute
+  replicas: 2
+  ingress: true
+  host: compute-k8s.senseye.co
+  node_selector_name: dask
+  node_selector_value: worker
+  grpc_portname: grpc-compute
+
+##### Gateway #####
+gateway:
+  app: gateway
+  name: gateway
+  tag: gateway
+  replicas: 2
+  ingress: true
+  host: gateway-k8s.senseye.co
+  node_selector_name: role
+  node_selector_value: manager
+  grpc_portname: grpc-gateway
+
+##### Storage #####
+storage:
+  app: storage
+  name: storage
+  tag: storage
+  replicas: 2
+  ingress: true
+  host: storage-k8s.senseye.co
+  node_selector_name: role
+  node_selector_value: manager
+  grpc_portname: grpc-storage
+
+##### Compute-task #####
+compute_tasks:
+  app: compute-tasks
+  name: compute-tasks
+  tag: compute-tasks
+  replicas: 2
+  node_selector_name: dask
+  node_selector_value: worker
+  portname: compute-tasks
+
+##### Rabbit-mq #####
+rabbit:
+  image: rabbitmq
+  tag: 3-management
+  app: rabbit
+  name: rabbit
+  replicas: 1
+  port: 15672
+
+##### Flower #####
+flower:
+  image: mher/flower
+  tag: latest
+  app: flower
+  name: flower
+  replicas: 1
+  port: 5555

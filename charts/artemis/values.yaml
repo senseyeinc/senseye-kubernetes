@@ -1,0 +1,29 @@
+# Default values for artemis.
+# This is a YAML-formatted file.
+
+
+#### general config #####
+general:
+  app: artemis
+  namespace: senseye
+  repository: senseyeinc/senseye-artemis
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  tag: latest
+  image_pull_policy: IfNotPresent
+  python_env: production
+  flask_env: production
+
+##### Artemis config #####
+artemis:
+  app: artemis
+  repository: senseyeinc/senseye-artemis
+  docker_secret: docker-secret
+  ssl_cert_secret: senseye-ssl-cert
+  tag: latest
+  name: artemis
+  flask_host: si.senseye.co
+  flask_port: 80
+  replicas: 1
+  node_selector_name: role
+  selector_value: manager
